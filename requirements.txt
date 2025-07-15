@@ -1,7 +1,5 @@
 streamlit
 pandas
 streamlit-folium
-streamlit_gsheets
-git+https://github.com/streamlit/gsheets-connection
 st-gsheets-connection
 st_social_media_links
