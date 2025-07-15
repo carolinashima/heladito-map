@@ -31,7 +31,7 @@ st.subheader('''
 Tracker de helados que voy probando por ahí.
 ''')
 
-app_path = 'http://localhost:8501'
+app_path = 'https://heladito-map.streamlit.app/'
 page_file_path = 'pages/Recomendame.py'
 page = page_file_path.split('/')[1][0:-3]
 
