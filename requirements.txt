@@ -1,0 +1,6 @@
+streamlit
+pandas
+streamlit-folium
+streamlit_gsheets
+st-gsheets-connection
+st_social_media_links
