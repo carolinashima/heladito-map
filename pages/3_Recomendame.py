@@ -45,7 +45,8 @@ existing_data = existing_data.dropna(how='all')
 with st.form(key = 'rec_form'):
     person    = st.text_input(label='Nombre (hacete cargo)')
     heladeria = st.text_input(label='Heladería *')
-    city      = st.text_input(label='Ciudad (y país, si no es en Argentina)')
+    #city      = st.text_input(label='Ciudad (y país, si no es en Argentina)')
+    map       = st.text_input(label='Google Maps link')
     text      = st.text_input(label='Qué me recomendás de este lugar? *')
     add_it    = st.radio(
         'Lo agrego al mapita de recomendaciones?',
@@ -70,7 +71,7 @@ with st.form(key = 'rec_form'):
                         "timestamp": time_now,
                         "person": person,
                         "heladeria": heladeria,
-                        "city": city,
+                        "map": map,
                         "text": text,
                         "add_it": add_it
                     }
