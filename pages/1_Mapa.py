@@ -23,7 +23,7 @@ social_media_links = [
 colors = ["black","black"]
 social_media_icons = SocialMediaIcons(social_media_links, colors)
 
-social_media_icons.render(sidebar=True)
+social_media_icons.render(sidebar=True, justify_content='start')
 
 st.header('Mapa')
 st.markdown('''
