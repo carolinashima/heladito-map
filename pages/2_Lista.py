@@ -19,12 +19,17 @@ social_media_links = [
 colors = ["black","black"]
 social_media_icons = SocialMediaIcons(social_media_links, colors)
 
-social_media_icons.render(sidebar=True)
+social_media_icons.render(sidebar=True, justify_content='start')
 
 st.header('Lista completa')
+
+st.write('''
+Las filas sin fecha son mis favoritos de la vida. 🫶
+''')
+
 selected_cols = ['fecha','nombre','local','gusto','rating','review','notas']
-df_tracker = st.session_state['df_tracker'][selected_cols]
-st.dataframe(df_tracker, hide_index=True,
+sorted_df = st.session_state['df_tracker'][selected_cols].sort_values(by='fecha', ascending = False)
+st.dataframe(sorted_df, hide_index=True,
 column_config = {
     'fecha': 'Fecha',
     'nombre': 'Nombre',
