@@ -58,6 +58,13 @@ selection = st.radio(
 )
 
 if selection == "Todos":
+    for _, row in df_recs.iterrows():
+        location = pd.to_numeric(row['latitude']), pd.to_numeric(row['longitude'])
+        folium.Marker(location, 
+        popup=row['nombre'],
+        tooltip=row['nombre'],
+        icon=folium.Icon(icon='fa-ice-cream',prefix='fa',color='gray')).add_to(map)
+        
     for _, row in df_shops.iterrows():
         location = pd.to_numeric(row['latitude']), pd.to_numeric(row['longitude'])
         if row['avg'] < 2:
@@ -73,12 +80,7 @@ if selection == "Todos":
         tooltip=row['nombre'],
         icon=folium.Icon(icon='fa-ice-cream',prefix='fa',color=color)).add_to(map)
 
-    for _, row in df_recs.iterrows():
-        location = pd.to_numeric(row['latitude']), pd.to_numeric(row['longitude'])
-        folium.Marker(location, 
-        popup=row['nombre'],
-        tooltip=row['nombre'],
-        icon=folium.Icon(icon='fa-ice-cream',prefix='fa',color='gray')).add_to(map)
+    
 if selection == "Visitados":
     for _, row in df_shops.iterrows():
         location = pd.to_numeric(row['latitude']), pd.to_numeric(row['longitude'])
