@@ -54,6 +54,7 @@ selected_cols = ['fecha',
 
 sorted_df = st.session_state['df_tracker'][selected_cols].sort_values(by='fecha', ascending = False)
 st.dataframe(sorted_df, hide_index=True,
+column_order = ('fecha','nombre','local','gusto','rating','review','notas'),
 column_config = {
     'fecha': 'Fecha',
     'nombre': 'Nombre',
@@ -93,7 +94,7 @@ with st.expander("Ranking de gustos"):
     )
     
     st.write('''
-    Cuáles fueron mis gustos favoritos?
+    Cuáles fueron mis gustos favoritos? A igual puntaje, el orden es random!
     ''')
     for i, row in enumerate(ranking.itertuples(), start=1):
         st.write(
