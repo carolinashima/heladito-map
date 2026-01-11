@@ -3,3 +3,4 @@ pandas
 streamlit-folium
 st-gsheets-connection
 st_social_media_links
+matplotlib
