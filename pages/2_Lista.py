@@ -82,6 +82,17 @@ if selected_year == "Todos":
 else:
     filtered_df = sorted_df[sorted_df['year'] == selected_year]
 
+st.write("""
+A cuántas heladerías (sucursales agrupadas) fui y cuántos gustos diferentes pedí?
+""")
+# show some metrics: n gustos, n heladerias
+n_heladerias = filtered_df['nombre'].nunique()
+n_gustos     = filtered_df['gusto'].nunique()
+# display in columns
+col1, col2 = st.columns(2)
+col1.metric("N° heladerías", n_heladerias)
+col2.metric("N° gustos", n_gustos)
+
 with st.expander("Ranking de gustos"):
     top_n = 10
     ranking = (
