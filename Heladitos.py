@@ -65,7 +65,7 @@ st.session_state['df_tracker'] = df_tracker
 # load heladerias tab
 url_shops = st.secrets["shops"]
 conn = st.connection("gsheets", type=GSheetsConnection)
-df_shops = conn.read(worksheet="heladerias", usecols=list(range(7)))
+df_shops = conn.read(worksheet="heladerias", usecols=list(range(8)))
 st.session_state['df_shops'] = df_shops
 
 # load recomendados tab
