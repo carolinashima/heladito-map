@@ -8,7 +8,7 @@ translations = {
             y helados que voy probando por ahí, como buena #GordaHeladitos.
 
             Si tenés ganas de recomendarme alguna heladería llená el formulario en
-            <a href="{app_path}/{page}" target="_self">Recomendame</a>
+            <a href="https://heladito-map.streamlit.app/Recomendame" target="_self">Recomendame</a>
             y agregaré tu sugerencia a mi mapita. Gracias! 🙌""",
         "0_imagecapt": "El sueño de la piba: helado gigante 🤩. Massera en algún lugar de la costa atlántica, 15 de febrero de 1995.",
 
@@ -85,7 +85,7 @@ translations = {
             flavours I try around town, like a good #GordaHeladitos.
 
             If you'd like to recommend me some shop, fill the form at
-            <a href="{app_path}/{page}" target="_self">Recomendame</a>
+            <a href="https://heladito-map.streamlit.app/Recomendame" target="_self">Recommend me</a>
             and I'll add your suggestion to my map. Thanks! 🙌""",
         "0_imagecapt": "My dream: a giant ice cream cone! 🤩. Massera somewhere on the Atlantic coast, 15th February 1995.",
 
