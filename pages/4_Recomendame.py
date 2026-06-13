@@ -4,14 +4,10 @@ from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 from st_social_media_links import SocialMediaIcons
 from datetime import datetime
+from translations import translations
+lang = st.session_state.get("lang", "es")
+t = translations[lang]
 
-# page config
-st.set_page_config(layout='wide',
-initial_sidebar_state='expanded',
-page_title='Heladito map',
-page_icon='🍦')
-
-st.sidebar.header('🍦 Heladito map')
 st.sidebar.markdown('''
 ---
 Made by Carolina L. Shimabukuro 👩🏻‍💻
@@ -25,13 +21,8 @@ social_media_icons = SocialMediaIcons(social_media_links, colors)
 
 social_media_icons.render(sidebar=True)
 
-st.title("Recomendame algo!")
-st.write('''Si conocés alguna heladería/gustos que debería probar,
-porfa llená el formulario así lo tengo en cuenta. Si no querés que figure
-en el mapita porque te da vergüenza (e.g. me recomendás menta granizada
-o quinotos al whisky), todo bien.
-
-En lo posible dejame un link a Google Maps, Open Street Map, etc.! 🙏''')
+st.title(t['4_title'])
+st.write(t['4_maintext'])
 
 # connect to google sheets
 conn = st.connection("gsheets", type=GSheetsConnection)
@@ -39,24 +30,22 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 existing_data = conn.read(worksheet="form_input", usecols=list(range(4)))
 existing_data = existing_data.dropna(how='all')
 
-#st.dataframe(existing_data) # print df
-
 # form
 with st.form(key = 'rec_form'):
-    person    = st.text_input(label='Nombre (hacete cargo)')
-    heladeria = st.text_input(label='Heladería *')
+    person    = st.text_input(label=t['4_form_name'])
+    heladeria = st.text_input(label=t['4_form_shop'])
     #city      = st.text_input(label='Ciudad (y país, si no es en Argentina)')
-    map       = st.text_input(label='Google Maps link')
-    text      = st.text_input(label='Qué me recomendás de este lugar? *')
+    map       = st.text_input(label=t['4_form_maps'])
+    text      = st.text_input(label=t['4_form_what'])
     add_it    = st.radio(
-        'Lo agrego al mapita de recomendaciones?',
-        ["Sí",
-        "No"],
-        captions = ["Es una recomendación para el mundo entero! 🤗",
-        "Me van a funar 🙈"]
+        t['4_form_add'],
+        [t['4_form_add_yes'],
+        t['4_form_add_no']],
+        captions = [t['4_form_add_yes_sub'],
+        t['4_form_add_no_sub']]
     )
 
-    submit_button = st.form_submit_button(label='Enviar')
+    submit_button = st.form_submit_button(label=t['4_form_button'])
     if submit_button:
         # check mandatory fields
         if not heladeria or not text:
