@@ -4,14 +4,10 @@ import matplotlib.pyplot as plt
 import datetime
 import pandas as pd
 import numpy as np
+from translations import translations
+lang = st.session_state.get("lang", "es")
+t = translations[lang]
 
-# page config
-st.set_page_config(layout='wide',
-initial_sidebar_state='expanded',
-page_title='Heladito map',
-page_icon='🍦')
-
-st.sidebar.header('🍦 Heladito map')
 st.sidebar.markdown('''
 ---
 Made by Carolina L. Shimabukuro 👩🏻‍💻
@@ -40,9 +36,7 @@ plt.rcParams.update({
 plt.rcParams["font.family"] = "Helvetica"
 
 st.subheader('Stats')
-st.write('''
-Cuáles son mis gustos favoritos? Cuáles son los que más pido? La respuesta no los sorprenderá.
-''')
+st.write(t['3_text1'])
 
 selected_cols = ['fecha',
 'nombre',
@@ -62,26 +56,24 @@ sorted_df = st.session_state['df_tracker'][selected_cols].sort_values(by='fecha'
 sorted_df['fecha'] = pd.to_datetime(sorted_df['fecha'], format="%Y.%m.%d")
 sorted_df['year'] = sorted_df['fecha'].dt.year
 years = sorted(sorted_df['year'].unique())
-options = ['Todos'] + years
+options = [t['3_yearselect1']] + years
 
-selected_year = st.selectbox("Seleccioná un año:", options)
-if selected_year == "Todos":
+selected_year = st.selectbox(t['3_yearselect'], options)
+if selected_year == t['3_yearselect1']:
     filtered_df = sorted_df
 else:
     filtered_df = sorted_df[sorted_df['year'] == selected_year]
 
-st.write("""
-A cuántas heladerías (sucursales agrupadas) fui y cuántos gustos diferentes pedí?
-""")
+st.write(t['3_text2'])
 # show some metrics: n gustos, n heladerias
 n_heladerias = filtered_df['nombre'].nunique()
 n_gustos     = filtered_df['gusto'].nunique()
 # display in columns
 col1, col2 = st.columns(2)
-col1.metric("N° heladerías", n_heladerias)
-col2.metric("N° gustos", n_gustos)
+col1.metric(t['3_nshops'], n_heladerias)
+col2.metric(t['3_nflavours'], n_gustos)
 
-with st.expander("Ranking de gustos"):
+with st.expander(t['3_rank_title']):
     top_n = 10
     ranking = (
         filtered_df
@@ -92,72 +84,54 @@ with st.expander("Ranking de gustos"):
         .head(top_n)
     )
     
-    st.write('''
-    Cuáles fueron mis gustos favoritos? A igual puntaje, el orden es random!
-    ''')
+    st.write(t['3_rank_text'])
     for i, row in enumerate(ranking.itertuples(), start=1):
         st.write(
             f"{i}. **{row.gusto}** "
             f"({row.nombre}, {row.rating:.2f})"
         )
     
-with st.expander("Distribución de puntajes"):
-    st.write('''
-    Del 1 al 5.
-    ''')
+with st.expander(t['3_scoredistr']):
+    st.write(t['3_scoredistr_text'])
     fig, ax = plt.subplots()
     bins = np.arange(1, 6, 0.5)
     ax.hist(filtered_df['rating'], bins=bins, color='thistle', align='mid', rwidth=0.8)
-    ax.set_xlabel('Puntaje')
+    ax.set_xlabel('Score')
     ax.set_ylabel('Count')
     plt.tight_layout()
     st.pyplot(fig)
 
-with st.expander("A la crema o al agua?"):
-    st.write('''
-        Puede ser que más de 1 fuera un mix.
-    ''')
+with st.expander(t['3_creamsorbet']):
     counts = filtered_df['tipo'].value_counts()
     fig, ax = plt.subplots()
     ax.barh(counts.index, counts.values, color='thistle')
-    #ax.set_xticks(range(0, max(counts.values) + 1))
     ax.set_xlabel('Count')
     ax.invert_yaxis()
     plt.tight_layout()
     st.pyplot(fig)
 
-with st.expander("Categoría"):
-    st.write('''
-        Categorías típicas de heladería.
-    ''')
+with st.expander(t['3_category']):
+    st.write(t['3_category_text'])
     counts = filtered_df['category'].value_counts()
     fig, ax = plt.subplots()
     ax.barh(counts.index, counts.values, color='thistle')
-    #ax.set_xticks(range(0, max(counts.values) + 1))
     ax.set_xlabel('Count')
     ax.invert_yaxis()
     plt.tight_layout()
     st.pyplot(fig)
 
-with st.expander("Sabor base"):
-    st.write('''
-        El sabor con mayor porcentaje (a ojo) del gusto en cuestión.
-        Algunos raris los pedí solo 1 vez así que solo muestro el top 15.
-    ''')
+with st.expander(t['3_baseflavour']):
+    st.write(t['3_baseflavour_text'])
     counts = filtered_df['base'].value_counts().head(15)
     fig, ax = plt.subplots()
     ax.barh(counts.index, counts.values, color='thistle')
-    #ax.set_xticks(range(0, max(counts.values) + 1))
     ax.set_xlabel('Count')
     ax.invert_yaxis()
     plt.tight_layout()
     st.pyplot(fig)
 
-with st.expander("Cositos extra dentro o sobre la crema"):
-    st.write('''
-        Puede ser que más de 1 fuera un mix.
-        Solo el top 10!
-    ''')
+with st.expander(t['3_extrastoppings']):
+    st.write(t['3_extrastoppings_text'])
     counts = filtered_df['cositos'].value_counts().head(10)
     fig, ax = plt.subplots()
     ax.barh(counts.index, counts.values, color='thistle')
