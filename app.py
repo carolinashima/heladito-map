@@ -10,7 +10,7 @@ st.title("🍦 Heladito map")
 
 # language options on sidebar
 lang_opt = ["🇦🇷", "🇬🇧"]
-lang = st.sidebar.pills("Idioma/language", lang_opt)
+lang = st.sidebar.pills("Idioma/language", lang_opt, default = "🇦🇷")
 lang = "es" if lang == "🇦🇷" else "en"
 st.session_state["lang"] = lang
 
