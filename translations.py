@@ -35,6 +35,7 @@ translations = {
         "2_cityselect": "Ciudad",
         "2_shopselect": "Heladería",
         "2_shopavg": "Promedio",
+        "2_notes": "Notas",
         "2_subh2": "Lista entera",
         "2_tabletitle": "Ver tabla",
 
