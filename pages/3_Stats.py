@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import datetime
 import pandas as pd
 import numpy as np
+import plotly.express as px
 from translations import translations
 lang = st.session_state.get("lang", "es")
 t = translations[lang]
@@ -51,6 +52,7 @@ selected_cols = ['fecha',
 'cositos']
 sorted_df = st.session_state['df_tracker'][selected_cols].sort_values(by='fecha', ascending = False)
 
+my_colour = 'rgb(188,128,189)'
 
 # convert to datetime
 sorted_df['fecha'] = pd.to_datetime(sorted_df['fecha'], format="%Y.%m.%d")
@@ -93,50 +95,32 @@ with st.expander(t['3_rank_title']):
     
 with st.expander(t['3_scoredistr']):
     st.write(t['3_scoredistr_text'])
-    fig, ax = plt.subplots()
-    bins = np.arange(1, 6, 0.5)
-    ax.hist(filtered_df['rating'], bins=bins, color='thistle', align='mid', rwidth=0.8)
-    ax.set_xlabel('Score')
-    ax.set_ylabel('Count')
-    plt.tight_layout()
-    st.pyplot(fig)
+    fig = px.histogram(filtered_df['rating'], x='rating', color_discrete_sequence=[my_colour])
+    st.plotly_chart(fig)
 
 with st.expander(t['3_creamsorbet']):
     counts = filtered_df['tipo'].value_counts()
-    fig, ax = plt.subplots()
-    ax.barh(counts.index, counts.values, color='thistle')
-    ax.set_xlabel('Count')
-    ax.invert_yaxis()
-    plt.tight_layout()
-    st.pyplot(fig)
+    fig = px.bar(counts, orientation='h', color_discrete_sequence=[my_colour])
+    fig.update_layout(showlegend=False, yaxis={'categoryorder':'total ascending'}, xaxis_title='count')
+    st.plotly_chart(fig)
 
 with st.expander(t['3_category']):
     st.write(t['3_category_text'])
     counts = filtered_df['category'].value_counts()
-    fig, ax = plt.subplots()
-    ax.barh(counts.index, counts.values, color='thistle')
-    ax.set_xlabel('Count')
-    ax.invert_yaxis()
-    plt.tight_layout()
-    st.pyplot(fig)
+    fig = px.bar(counts, orientation='h', color_discrete_sequence=[my_colour])
+    fig.update_layout(showlegend=False, yaxis={'categoryorder':'total ascending'}, xaxis_title='count')
+    st.plotly_chart(fig)
 
 with st.expander(t['3_baseflavour']):
     st.write(t['3_baseflavour_text'])
     counts = filtered_df['base'].value_counts().head(15)
-    fig, ax = plt.subplots()
-    ax.barh(counts.index, counts.values, color='thistle')
-    ax.set_xlabel('Count')
-    ax.invert_yaxis()
-    plt.tight_layout()
-    st.pyplot(fig)
+    fig = px.bar(counts, orientation='h', color_discrete_sequence=[my_colour])
+    fig.update_layout(showlegend=False, yaxis={'categoryorder':'total ascending'}, xaxis_title='count')
+    st.plotly_chart(fig)
 
 with st.expander(t['3_extrastoppings']):
     st.write(t['3_extrastoppings_text'])
     counts = filtered_df['cositos'].value_counts().head(10)
-    fig, ax = plt.subplots()
-    ax.barh(counts.index, counts.values, color='thistle')
-    #ax.set_xticks(range(0, max(counts.values) + 1))
-    ax.set_xlabel('Count')
-    ax.invert_yaxis()
-    plt.tight_layout()
-    st.pyplot(fig)
+    fig = px.bar(counts, orientation='h', color_discrete_sequence=[my_colour])
+    fig.update_layout(showlegend=False, yaxis={'categoryorder':'total ascending'}, xaxis_title='count')
+    st.plotly_chart(fig)
