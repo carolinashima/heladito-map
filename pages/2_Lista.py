@@ -44,12 +44,12 @@ st.subheader(t["2_subh1"])
 st.write(t["2_text"])
 
 # select city
-selected_city = st.selectbox(t["2_cityselect"], df_shops['city'].unique())
+selected_city = st.selectbox(t["2_cityselect"], df_shops['city'].unique(), index=1)
 df_city = df_shops[df_shops['city'] == selected_city].copy()
 
 # select shop
 df_city['display_name'] = df_city['nombre'] + " (" + df_city['local'] + ")"
-selected_shop = st.selectbox(t["2_shopselect"], df_city['display_name'].sort_values())
+selected_shop = st.selectbox(t["2_shopselect"], df_city['display_name'].sort_values(), index=2)
 
 shop_row = df_city[df_city['display_name'] == selected_shop].iloc[0]
 
